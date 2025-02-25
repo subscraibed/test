@@ -195,7 +195,7 @@ for (const code of Object.values(Tesseract.languages)) {
   const option = document.createElement('option');
   option.value = code;
   option.textContent = name;
-  if (option.value == 'eng') {
+  if (option.value == 'eng+heb') {
     option.selected = true;
   }
   languageSelect.appendChild(option);
@@ -390,7 +390,7 @@ async function ocrImage(worker, imageUrl) {
 languageSelect.addEventListener('change', async (event) => {
   let newUrl = window.location.pathname;
   let language = event.target.value;
-  if (language != 'eng') {
+  if (language != 'eng+heb') {
     newUrl += '?language=' + language;
   }
   window.history.pushState({ path: newUrl }, '', newUrl);
@@ -401,7 +401,7 @@ function setLanguageFromQueryString() {
   const params = new URLSearchParams(window.location.search);
   let value = params.get('language');
   if (!value) {
-    value = 'eng';
+    value = 'eng+heb';
   }
   languageSelect.value = value;
 }
