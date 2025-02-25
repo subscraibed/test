@@ -65,7 +65,7 @@ textarea {
     <textarea class="full-document" id="fullDocument"></textarea>
     <h2>Pages</h2>
   </div>
-  <div class="text-content"></div>
+  <div class="text-content" id="textContent"></div>
   <div class="image-container"></div>
   <p><a href="https://github.com/simonw/tools/blob/main/ocr.html">Source code</a>. <a href="https://simonwillison.net/2024/Mar/30/ocr-pdfs-images/">How I built this</a>.</p>
 
@@ -77,6 +77,8 @@ const imageContainer = document.querySelector('.image-container');
 const fullDocumentTextarea = document.getElementById('fullDocument');
 const fullDocumentSection = document.getElementById('fullDocumentSection');
 const languageSelect = document.getElementById('id_language');
+const textSelect = document.getElementById('textContent');
+
 
 let fileSelectionAllowed = true;
 
@@ -386,7 +388,7 @@ async function ocrImage(worker, imageUrl) {
     data: { text },
   } = await worker.recognize(imageUrl);
 
-  document.getElementById('text-content').innerHTML = "<p>" + text + "</p>";
+  document.getElementById('textContent').innerHTML = "<p>" + text + "</p>";
 
   return { text };
 }
