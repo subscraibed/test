@@ -382,7 +382,8 @@ async function convertPDFToImages(file) {
 async function ocrImage(worker, imageUrl) {
   const {
     data: { text },
-  } = await worker.recognize(imageUrl);
+//   } = await worker.recognize(imageUrl);
+  } = await worker.recognize(imageUrl, { lang: 'eng+heb' })
   return { text };
 }
 
