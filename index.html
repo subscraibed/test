@@ -386,7 +386,7 @@ async function ocrImage(worker, imageUrl) {
     data: { text },
   } = await worker.recognize(imageUrl);
 
-  document.getElementById('text-content').innerHTML = {text};
+  document.getElementById('text-content').innerHTML = "<p>" + text + "</p>";
 
   return { text };
 }
