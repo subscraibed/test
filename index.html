@@ -65,6 +65,7 @@ textarea {
     <textarea class="full-document" id="fullDocument"></textarea>
     <h2>Pages</h2>
   </div>
+  <div class="text-content"></div>
   <div class="image-container"></div>
   <p><a href="https://github.com/simonw/tools/blob/main/ocr.html">Source code</a>. <a href="https://simonwillison.net/2024/Mar/30/ocr-pdfs-images/">How I built this</a>.</p>
 
@@ -181,8 +182,7 @@ const LANGUAGES = {
   "uzb": "Uzbek",
   "uzb_cyrl": "Uzbek - Cyrillic",
   "vie": "Vietnamese",
-  "yid": "Yiddish",
-  "eng+heb" : "English - Hebrew"
+  "yid": "Yiddish"
 }
 
 // Populate the languages select box
@@ -263,7 +263,9 @@ fileInput.addEventListener('change', (event) => {
 });
 
 async function processFile(file) {
-  const worker = await Tesseract.createWorker(languageSelect.value);
+//   const worker = await Tesseract.createWorker(languageSelect.value);
+const worker = await Tesseract.createWorker('eng+heb');
+
   fullDocumentTextarea.value = '';
   fullDocumentSection.style.display = 'none';
   imageContainer.innerHTML = '';
@@ -382,8 +384,10 @@ async function convertPDFToImages(file) {
 async function ocrImage(worker, imageUrl) {
   const {
     data: { text },
-//   } = await worker.recognize(imageUrl);
-  } = await worker.recognize(imageUrl, { lang: 'eng+heb' })
+  } = await worker.recognize(imageUrl);
+
+  document.getElementById('text-content').innerHTML = {text};
+
   return { text };
 }
 
